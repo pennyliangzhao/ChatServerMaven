@@ -11,12 +11,10 @@ import java.util.HashMap;
 
 
 public class ThreadedServer {
-    private static final int PORT = 8585;
     private Label label;
     private ServerSocket listener;
     private TextArea textArea;
     private Socket socket;
-    private String ip;
     private static HashMap<String, Socket> clientsMap = new HashMap<>();
 
 
@@ -32,7 +30,7 @@ public class ThreadedServer {
         while (true) {
             socket = listener.accept();
             textArea.appendText("Client: "+socket+"\n");
-            new ServerThread(socket).start();
+            new ServerThread(socket, textArea).start();
         }
     }
 

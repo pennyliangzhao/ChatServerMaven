@@ -3,6 +3,7 @@ package org.chat.server.ui.server;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import javafx.scene.control.TextArea;
 import org.chat.server.ui.cipher.CaesarCipher;
 import org.chat.server.ui.firestore.objects.Message;
 import org.chat.server.ui.firestore.objects.Messages;
@@ -21,9 +22,11 @@ public class ServerThread extends Thread {
     private BufferedReader reader;
     private PrintWriter writer;
     private static final String REG = "REG", MSG = "MSG";
+    private TextArea textArea;
 
-    public ServerThread(Socket s) throws IOException {
+    public ServerThread(Socket s, TextArea textArea) throws IOException {
         this.socket = s;
+        this.textArea = textArea;
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         writer = new PrintWriter(socket.getOutputStream(), true);
     }
@@ -79,6 +82,7 @@ public class ServerThread extends Thread {
                 String message = msgArray[3];
                 Socket recipientSocket = ThreadedServer.getClient(receiver);
                 String text = sender+" : "+message;
+                textArea.appendText("Client Messaged: "+text+"\n");
                 //Encrypt the message
                 sendMessage(recipientSocket, text);
                 String encryptedMsg = CaesarCipher.encrypt(message,2);
