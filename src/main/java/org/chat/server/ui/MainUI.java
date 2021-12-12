@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.chat.server.ui.firestore.FirestoreInitializer;
 
 public class MainUI extends Application {
 
@@ -14,5 +15,6 @@ public class MainUI extends Application {
         stage.setTitle("ServerApp");
         stage.setScene(new Scene(parent, 600, 500));
         stage.show();
+        FirestoreInitializer.initialize();
     }
 }

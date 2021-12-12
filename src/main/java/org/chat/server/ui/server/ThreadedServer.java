@@ -31,8 +31,8 @@ public class ThreadedServer {
 
         while (true) {
             socket = listener.accept();
+            textArea.appendText("Client: "+socket+"\n");
             new ServerThread(socket).start();
-
         }
     }
 

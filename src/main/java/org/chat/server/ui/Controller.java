@@ -37,7 +37,6 @@ public class Controller {
             return new Task<>() {
                 @Override
                 protected Void call() throws Exception {
-                    //TODO implement validate the port number(0, 65535)
                     int portNo = Integer.parseInt(portNumber.getText());
                     if (portNo <= 65535 && portNo >= 0) {
                         listener = new ServerSocket(Integer.parseInt(portNumber.getText()));
